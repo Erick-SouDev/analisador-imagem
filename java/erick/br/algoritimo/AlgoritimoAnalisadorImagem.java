@@ -6,10 +6,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import net.sourceforge.tess4j.util.PdfBoxUtilities;
 
 public class AlgoritimoAnalisadorImagem {
 
-	private static String CAMINHO_IMAGEM = "C:/Projetos/analisador-imagem-console/analisador-imagem/src/main/resources/imagem.jpg";
+	private static String CAMINHO_IMAGEM = "C:/Projetos/analisador-imagem-console/analisador-imagem/src/main/resources/ap.pdf";
 	private static String PASTA_TREINAMENTO = "C:\\Program Files\\Tesseract-OCR\\tessdata";
 
 	public static void main(String[] args) throws IOException {
@@ -24,9 +25,9 @@ public class AlgoritimoAnalisadorImagem {
 
 			File file = new File(CAMINHO_IMAGEM);
 
-			BufferedImage bufferedImage = ImageIO.read(file);
+			file = PdfBoxUtilities.convertPdf2Tiff(file);
 
-			String imagemAnalisada = tesseract.doOCR(bufferedImage);
+			String imagemAnalisada = tesseract.doOCR(file);
 
 			System.out.println(imagemAnalisada.toString());
 
